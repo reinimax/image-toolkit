@@ -61,9 +61,14 @@ def image_process():
         if operation["name"].lower() in ALLOWED_OPERATIONS:
             image = ALLOWED_OPERATIONS[operation["name"]](image, operation["width"])
     image.save(processed_image, format="jpeg")
+    width, height = image.size
     procsessed_image_encoded = base64.b64encode(processed_image.getvalue()).decode()
     raw_image.close()
     processed_image.close()
     return {
+        "metadata": {
+            "width": width,
+            "height": height
+        },
         "processed_image": procsessed_image_encoded
     }
