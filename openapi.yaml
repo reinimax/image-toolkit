@@ -1,0 +1,60 @@
+openapi: 3.0.1
+info:
+  title: Image toolkit
+  description: Service for basic image manipulation operations.
+  version: 1.0.0
+paths:
+  /image-process:
+    post:
+      summary: Process the provided image
+      description: The provided image is processed based on the given parameters. Chaining operations is possible (see below).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operations:
+                  type: array
+                  items:
+                  type: object
+                  properties:
+                    # Name of the operation
+                    name:
+                      type: string
+                      enum:
+                      - resize
+                    # Parameters for the different operations
+                    width:
+                      $ref: "#/components/schemas/imageSize"
+                    height:
+                      $ref: "#/components/schemas/imageSize"
+                # base64 encoded original image
+                original_image:
+                  type: string
+                  format: byte
+      responses:
+        "200":
+          description: The image was successfully processed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properites:
+                  metadata:
+                    type: object
+                    properties:
+                      # Width and height of the processed image in pixels.
+                      width: 
+                        type: integer
+                      height:
+                        type: integer
+                  # base64 encoded processed image
+                  processed_image:
+                    type: string
+                    format: byte
+components:
+  schemas:
+    imageSize:
+      type: string
+      pattern: '^[0-9]+(px|%)?'
