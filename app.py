@@ -23,9 +23,13 @@ def image_process():
     payload = request.json
     operations = payload["operations"]
     original_image_decoded = base64.b64decode(payload["original_image"])
+    # Load the bytes of the decoded image directly into memory, without 
+    # creating a temporary file.
     image = io.BytesIO(original_image_decoded)
     # for operation in operations:
         
+    procsessed_image_encoded = base64.b64encode(image.read()).decode()
+    image.close()
     return {
-        "processed_image": base64.b64encode(image.read()).decode()
+        "processed_image": procsessed_image_encoded
     }
