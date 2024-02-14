@@ -1,5 +1,5 @@
 from flask import Flask, request
-import base64
+import base64, io
 
 app = Flask(__name__)
 
@@ -23,14 +23,9 @@ def image_process():
     payload = request.json
     operations = payload["operations"]
     original_image_decoded = base64.b64decode(payload["original_image"])
-    with open("tmp", "wb+") as image:
-        image.write(original_image_decoded)
-
+    image = io.BytesIO(original_image_decoded)
     # for operation in operations:
         
-        # rewind file pointer to beginning of the file.
-        image.seek(0)
-
-        return {
-            "processed_image": base64.b64encode(image.read()).decode()
-        }
+    return {
+        "processed_image": base64.b64encode(image.read()).decode()
+    }
