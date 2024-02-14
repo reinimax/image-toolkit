@@ -1,5 +1,6 @@
 from flask import Flask, request
 import base64, io
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -25,11 +26,15 @@ def image_process():
     original_image_decoded = base64.b64decode(payload["original_image"])
     # Load the bytes of the decoded image directly into memory, without 
     # creating a temporary file.
-    image = io.BytesIO(original_image_decoded)
+    raw_image = io.BytesIO(original_image_decoded)
+    processed_image = io.BytesIO()
+    image = Image.open(raw_image)
+    image.save(processed_image, format="jpeg")
     # for operation in operations:
         
-    procsessed_image_encoded = base64.b64encode(image.read()).decode()
-    image.close()
+    procsessed_image_encoded = base64.b64encode(processed_image.getvalue()).decode()
+    raw_image.close()
+    processed_image.close()
     return {
         "processed_image": procsessed_image_encoded
     }
