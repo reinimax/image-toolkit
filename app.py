@@ -1,8 +1,29 @@
 from flask import Flask, request
+from apiflask import APIFlask, Schema, abort
+from apiflask.fields import Integer, String, File, Nested, List
+from apiflask.validators import Length, OneOf, Regexp
 import base64, io
 from PIL import Image
 
-app = Flask(__name__)
+app = APIFlask(__name__)
+
+class Operations(Schema):
+    name = String(validate=OneOf(["resize", "foo"]))
+    width = String(validate=Regexp("^[0-9]+(px|%)$"))
+    height = String(validate=Regexp("^[0-9]+(px|%)$"))
+
+class ImageIn(Schema):
+    original_image = String(format="base64")
+    operations = List(Nested(Operations))
+
+class Metadata(Schema):
+    width = Integer()
+    height = Integer()
+
+class ProcessedImage(Schema):
+    metadata = Nested(Metadata)
+    processed_image = String(format="base64")
+    
 
 # TODO move this helper
 def parse_dimension(str):
@@ -47,8 +68,11 @@ ALLOWED_OPERATIONS = {
     "resize": resize
 }
 
-@app.route("/image-process", methods=["POST"])
-def image_process():
+@app.post("/image-process")
+@app.input(ImageIn)
+@app.output(ProcessedImage)
+def image_process(json):
+    app.logger.debug(json)
     payload = request.json
     operations = payload["operations"]
     original_image_decoded = base64.b64decode(payload["original_image"])
