@@ -72,8 +72,8 @@ def resize(image:Image.Image, width:str=None, height:str=None):
         scale = height / orig_h
         width = int(orig_w * scale)
 
-    # Make sure the given dimensions don't exceed the original image.
-    if width > orig_w or height > orig_h:
+    # Make sure the given dimensions are greater than 0 and don't exceed the original image.
+    if width <= 0 or height <= 0 or width > orig_w or height > orig_h:
         return image
     
     return image.resize((width, height))
