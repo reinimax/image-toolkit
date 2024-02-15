@@ -23,7 +23,7 @@ passed to the function.
 """
 
 from PIL import Image
-from helpers import parse_dimension
+from helpers import Unit, parse_dimension
 
 def resize(image:Image.Image, width:str=None, height:str=None):
     """#Resize the image to the provided dimensions
@@ -45,14 +45,37 @@ def resize(image:Image.Image, width:str=None, height:str=None):
     **Returns**:
     PIL Image object
     """
-    width, unit = parse_dimension(width)
+    # If no dimensions were provided, return the original image.
+    if not width and not height:
+        return image
+    
     # Get original image dimensions
     orig_w, orig_h = image.size
-    # Calculate by how much the image scales down
-    scale = width / orig_w
-    # Scale the not-provided dimension accordingly
-    height = int(orig_h * scale)
 
+    if width:
+        width, unit = parse_dimension(width)
+        if unit == Unit.PERCENT:
+            width = int(orig_w * width / 100)
+
+    if height:
+        height, unit = parse_dimension(height)
+        if unit == Unit.PERCENT:
+            height = int(orig_h * height / 100)
+
+    # Scale the dimension that was not provided
+    if not height:
+        # Calculate by how much the image scales down
+        scale = width / orig_w
+        # Scale the height accordingly
+        height = int(orig_h * scale)
+    elif not width:
+        scale = height / orig_h
+        width = int(orig_w * scale)
+
+    # Make sure the given dimensions don't exceed the original image.
+    if width > orig_w or height > orig_h:
+        return image
+    
     return image.resize((width, height))
 
 
