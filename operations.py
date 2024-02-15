@@ -1,3 +1,27 @@
+"""
+This file defines image manipulation operations that are callable via the API.
+New functions added here will be automatically picked up when the function is 
+added to the `ALLOWED_OPERATIONS` dictionary.
+
+Function arguments will be automatically passed when the function is called, 
+if they were given via the API. The keys provided in the `operations` object 
+must match the parameter names of the Python function. For example, giving 
+this JSON to the API
+```
+"operations": [
+    {
+        "name": "resize",
+        "width": "300px"
+    }
+]
+```
+would result in this function call: `resize(image, width="300px")`.
+
+Note that every image manipulation function must take an object of class 
+PIL.Image.Image as its first parameter, which will always be automatically 
+passed to the function.
+"""
+
 from PIL import Image
 from helpers import parse_dimension
 
