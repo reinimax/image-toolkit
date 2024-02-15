@@ -3,3 +3,4 @@ Pillow >= 10.2
 pdoc >= 14.4
 mkdocs >= 1.5.0
 mkdocs-material >= 9.5.9
+pymdown-extensions >= 10.7

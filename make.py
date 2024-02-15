@@ -11,7 +11,7 @@ out = here / "docs" / "api"
 if out.exists():
     shutil.rmtree(out)
 
-# Render parts of pdoc's documentation into docs/api...
+# Render documentation into docs/api...
 render.configure(template_directory=here / "pdoc-template")
 pdoc("operations", output_directory=out)
 

@@ -7,9 +7,14 @@ theme:
 plugins:
   - material/search:
 nav:
-    - 'index.md'
+    - Home: 'index.md'
     - 'API Reference':
         - 'Processing functions': 'api/operations.md'
 # Custom JS for moving pdoc navigation to the sidebar
 extra_javascript:
   - custom.js
+# Extensions to essentially link to README.md from index.md
+markdown_extensions:
+- pymdownx.magiclink
+- pymdownx.snippets:
+    check_paths: true
