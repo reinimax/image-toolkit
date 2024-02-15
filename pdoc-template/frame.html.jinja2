@@ -1,0 +1,14 @@
+{# see https://pdoc.dev/docs/pdoc.html#integrate-pdoc-into-other-systems #}
+
+{% extends "default/frame.html.jinja2" %}
+
+{% block content %}{% endblock %}
+
+{% filter minify_css %}
+    {% block style %}
+        <style>{% include "syntax-highlighting.css" %}</style>
+        <style>{% include "theme.css" %}</style>
+        <style>{% include "content.css" %}</style>
+        <style>{% include "custom.css" %}</style>
+    {% endblock %}
+{% endfilter %}

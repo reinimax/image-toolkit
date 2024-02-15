@@ -1,0 +1,15 @@
+site_name: Image toolkit
+repo_url: https://github.com/reinimax/image-toolkit
+theme: 
+  name: material
+  features:
+    - search.suggest
+plugins:
+  - material/search:
+nav:
+    - 'index.md'
+    - 'API Reference':
+        - 'Processing functions': 'api/operations.md'
+# Custom JS for moving pdoc navigation to the sidebar
+extra_javascript:
+  - custom.js
