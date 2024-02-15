@@ -1,5 +1,8 @@
-/* TODO custom stylings
-body {
-    background: red !important;
+nav.pdoc #navtoggle,
+nav.pdoc #togglestate {
+    display: none;
 }
-*/
+
+ul.memberlist a {
+    font-size: 14px;
+}
