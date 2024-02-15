@@ -5,7 +5,8 @@ theme:
   features:
     - search.suggest
 plugins:
-  - material/search:
+  - material/search
+  - open-in-new-tab
 nav:
     - Home: 'index.md'
     - 'API Reference':
