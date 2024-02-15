@@ -27,7 +27,7 @@ def image_process():
     processed_image = io.BytesIO()
     image = Image.open(raw_image)
     for operation in operations:
-        if operation["name"].lower() in ALLOWED_OPERATIONS:
+        if operation.get("name", '').lower() in ALLOWED_OPERATIONS:
             # TODO find a way to pass in the parameters the respective function needs.
             # Or pass in everything and let the function figure it out?
             image = ALLOWED_OPERATIONS[operation["name"]](image, operation["width"])
