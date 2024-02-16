@@ -24,6 +24,8 @@ def image_process():
     # Load the bytes of the decoded image directly into memory, without creating a temporary file.
     raw_image = io.BytesIO(original_image_decoded)
     image = Image.open(raw_image)
+    # Remember image format
+    image_format = image.format.lower()
     for operation in operations:
         # Ignore keys that don't follow the format of a dict.
         if not isinstance(operation, dict):
@@ -49,13 +51,14 @@ def image_process():
                 continue
     # Create a buffer in memory and save the processed image to it.
     processed_image = io.BytesIO()
-    image.save(processed_image, format="jpeg")
+    image.save(processed_image, format=image_format)
     width, height = image.size
     procsessed_image_encoded = base64.b64encode(processed_image.getvalue()).decode()
     raw_image.close()
     processed_image.close()
     return {
         "metadata": {
+            "format": image_format,
             "width": width,
             "height": height
         },

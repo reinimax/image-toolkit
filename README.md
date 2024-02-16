@@ -75,6 +75,7 @@ A successful response from the API will look like this:
 ```
 {
     "metadata": {
+        "format": "jpeg", // format of the processed image
         // width and height of the processed image
         "height": 374,
         "width": 300
