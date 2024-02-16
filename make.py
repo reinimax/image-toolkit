@@ -7,7 +7,7 @@ from pdoc import pdoc
 from pdoc import render
 
 here = Path(__file__).parent
-out = here / "docs" / "api"
+out = here / "mk-docs" / "api"
 if out.exists():
     shutil.rmtree(out)
 

@@ -1,5 +1,7 @@
 site_name: Image toolkit
 repo_url: https://github.com/reinimax/image-toolkit
+docs_dir: mk-docs
+site_dir: docs
 theme: 
   name: material
   features:
