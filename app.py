@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify, make_response
 import base64, io, binascii, inspect
 from PIL import Image
 from operations import ALLOWED_OPERATIONS
@@ -61,3 +61,12 @@ def image_process():
         },
         "processed_image": procsessed_image_encoded
     }
+
+
+# Taken from https://hf.co/chat/r/rQ-g0NB
+# Define custom error handler for all exceptions, returning them as JSON instead of text/html.
+@app.errorhandler(Exception)
+def handle_exception(e):
+    response = make_response(jsonify({"error": str(e)}))
+    response.status_code = getattr(e, "code", 500)
+    return response
