@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 import base64, io, binascii, inspect
 from PIL import Image
 from operations import ALLOWED_OPERATIONS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/image-process", methods=["POST"])
 def image_process():

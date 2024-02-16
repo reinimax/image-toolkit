@@ -1,4 +1,5 @@
 flask >= 3.0.0
+flask-cors >= 4.0
 Pillow >= 10.2
 pdoc >= 14.4
 mkdocs >= 1.5.0
