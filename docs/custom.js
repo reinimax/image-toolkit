@@ -1,5 +1,7 @@
 function movePdocNavBar(e) {
     navbar = document.querySelector('nav.pdoc');
+    if (!navbar) return;
+    
     navbar.querySelector('.memberlist').classList.add('md-nav__list');
     navbar.querySelectorAll('.memberlist a').forEach(a => a.classList.add('md-nav__link'));
 
