@@ -16,7 +16,8 @@ def parse_dimension(str: str|int) -> Tuple[int, str]:
     # If the string is numeric, we can assume pixels and immediately return.
     if isinstance(str, int):
         return (str, Unit.PIXELS)
-    # TODO handle floats
+    if isinstance(str, float):
+        return (int(str), Unit.PIXELS)
     if str.endswith("%"):
         unit = Unit.PERCENT
     # If no percent was given, assume pixels.

@@ -42,6 +42,7 @@ Optionally, each operation accepts arguments that specify how the image should b
 "width": "300px"
 "width": "300" // 300px, as above
 "width": 300
+"width": 300.0 // this works too, but is considered bad practice
 "width": "50%" // 50 percent
 ```
 
@@ -101,4 +102,7 @@ to document the single image manipulation operations. At the end, I decided to u
 ### Acknowledgements
 - Huge thanks to [HuggingChat](https://huggingface.co/chat/) for providing suggestions and feeback regarding some initial design decisions ([link to the chat](https://hf.co/chat/r/Oqo8rfK))
 and for help with debugging some stuff.
+- This project would not have been possible without some amazing libraries. See below for a list of projects this project relies on.
 
+### Powerd by
+tbd list used libraries
