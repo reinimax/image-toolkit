@@ -3,6 +3,11 @@
 ## Description:
 Image toolkit  is a service for basic image manipulation. It features a website where the user can upload an image for processing, as well as an API, powered by [Flask](https://flask.palletsprojects.com/).
 
+### Links
+- [Documentation is hosted on Github](https://reinimax.github.io/image-toolkit/)
+- Backend hosting tbd
+- Frendend hosting tbd
+
 ### Installation
 1. Set up virtual environment: `python3 -m venv .venv`
 2. Activate virtual environment: `. .venv/bin/activate`
