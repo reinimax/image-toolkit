@@ -6,11 +6,26 @@ function addDataUrlPrefix(str, mimeType) {
     return `data:${mimeType};base64,` + str;
 }
 
+async function updateImageViewLink(dataUrl, mimeType) {
+    // Essentially, we need to convert the base64 data-url, because it is too long to open in a new tab.
+    // There are multiple approaches, but using fetch to get to the blob, creating a File from it and 
+    // a URL from the File seems to be the easiest and most concise.
+    // @see https://stackoverflow.com/a/47497249
+    response = await fetch(dataUrl);
+    blob = await response.blob();
+    const file = new File([blob], "File name",{ type: mimeType })
+    document.querySelector("#image-view-btn").href = URL.createObjectURL(file);
+}
+
 function previewImage(base64Str, mimeType) {
     const preview = document.querySelector("#image-preview");
-    preview.src = addDataUrlPrefix(base64Str, mimeType);
+    const dataUrl = addDataUrlPrefix(base64Str, mimeType);
+    preview.src = dataUrl;
     // Save mime type for later.
     preview.dataset.mimeType = mimeType;
+    // Update the view and download links
+    document.querySelector("#image-download-btn").href = dataUrl;
+    updateImageViewLink(dataUrl, mimeType);
 }
 
 function handleImageUpload(e) {
