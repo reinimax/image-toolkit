@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+}
+
+img {
+    max-width: 100%;
+}
+
+#page-wrapper {
+    margin: 0 auto;
+    padding: 3em 1em;
+    max-width: 600px;
+    min-height: 100vh;
+    background-color: white;
+    text-align: center;
+}
+
+.form-wrapper {
+    padding: 0.5em;
+    margin: 0.25em 0;
+    border-radius: 0.25em;
+    border: 1px solid #80808021;
+}
+
+input, 
+input[type="file"]::file-selector-button,
+select {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 0.25em;
+    padding: 0.25em 1em;
+    margin: 0.25em;
+}
+
+.btn, input[type="file"]::file-selector-button {
+    cursor: pointer;
+}
+
+.btn-hover:hover, input[type="file"]::file-selector-button:hover {
+    background-color: black;
+    color: white;
+}
+
+#image-upload-form {
+    display: flex;
+    justify-content: center;
+}

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image toolkit</title>
-    <!-- TODO add styling -->
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <div>
+    <div id="page-wrapper">
         <h1>Image toolkit</h1>
         <div>
             <p>Upload your image via the form and perform operations on it.</p>
@@ -17,7 +17,7 @@
             <img id="image-preview">
         </div>
 
-        <div>
+        <div class="form-wrapper">
             <form id="resize">
                 <input type="number" min="1" name="size" required>
                 <select name="dimension">
@@ -28,15 +28,15 @@
                     <option value="px">Pixels</option>
                     <option value="%">Percent</option>
                 </select>
-                <input type="submit" value="Resize">
+                <input class="btn btn-hover" type="submit" value="Resize">
             </form>
         </div>
 
-        <div>
+        <div class="form-wrapper">
             <form id="image-upload-form">
                 <!-- Allow some basic image tpyes for now. -->
-                <input type="file" name="original_image" accept="image/png, image/jpeg, image/bmp, image/webp" required>
-                <input type="submit" value="Upload image">
+                <input class="btn" type="file" name="original_image" accept="image/png, image/jpeg, image/bmp, image/webp" required>
+                <input class="btn btn-hover" type="submit" value="Upload image">
             </form>
         </div>
     </div>
