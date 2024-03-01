@@ -30,6 +30,13 @@ img {
     border: 1px solid #80808021;
 }
 
+.form-wrapper-caption {
+    text-align: start;
+    position: relative;
+    padding: 1.5em 0.5em 0.5em;
+    margin: 1.5em 0 0.25em;
+}
+
 input,
 button,
 a.btn,
@@ -82,4 +89,15 @@ input[type="number"] {
     align-content: center;
     justify-content: space-between;
     align-items: center;
+}
+
+h2.operations-headline {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: normal;
+    position: absolute;
+    top: -12px;
+    left: 5px;
+    background: white;
+    padding: 0 10px;
 }
