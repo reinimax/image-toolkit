@@ -79,7 +79,40 @@ def resize(image:Image.Image, width:str=None, height:str=None):
     return image.resize((width, height))
 
 
+def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False):
+    """#Rotate the image by the provided degrees
+    
+    **Parameters:**
+    - image (Image): PIL image object
+    - degrees (int|float|str): Amount of degrees by which to rotate the image
+    - expand (bool): Whether the image dimensions should expand so that the 
+    resulting image contains all of the original image. If set to False, the 
+    image will remain the same size and parts that would be "outside" the image 
+    due to roation will be cut. For rotating by 90 and 270 degrees, leave this 
+    setting set to True, since this will allow width and height of the image to 
+    switch without producing a border
+    - clockwise (bool): Set to True for clockwise rotation. Per default, rotation 
+    is counter-clockwise
+
+    **Description:**  
+    Rotate the image counter-clockwise by the provided degrees.
+
+    **Returns**:
+    PIL Image object
+    """
+    # If we get a string, try to convert to float
+    if isinstance(degrees, str):
+        try:
+            degrees = float(degrees)
+        except:
+            return image
+    # Invert degrees if we rotate clockwise.
+    degrees = -degrees if clockwise else degrees
+    return image.rotate(degrees, expand=expand)
+
+
 ALLOWED_OPERATIONS = {
-    "resize": resize
+    "resize": resize,
+    "rotate": rotate
 }
 """@private"""
