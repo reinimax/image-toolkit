@@ -69,8 +69,13 @@ async function makeRequest(operation) {
 }
 
 async function resize(size, unit, dimension) {
-    // TODO validate that size is a positive number
-    console.log(size >= 1);
+    // Validate that size is a positive number
+    const errorbox = document.querySelector("#resize-wrapper .form-error");
+    if (size <= 1) {
+        errorbox.textContent = "Size is required and must be positive number.";
+    } else {
+        errorbox.textContent = "";
+    }
 
     const operation = {
         "name": "resize",
@@ -113,7 +118,7 @@ function processImage(e) {
             args: ["rotate_degrees", "rotate_expand", "rotate_clockwise"]
         }
     }
-    
+
     // Get formdata, see https://stackoverflow.com/a/66407161
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
