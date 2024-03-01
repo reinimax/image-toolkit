@@ -21,21 +21,52 @@
             </div>
         </div>
 
-        <div class="form-wrapper">
-            <form id="resize">
-                <input type="number" min="1" name="size" required>
-                <select name="dimension">
-                    <option value="width">Width</option>
-                    <option value="height">Height</option>
-                </select>
-                <select name="unit">
-                    <option value="px">Pixels</option>
-                    <option value="%">Percent</option>
-                </select>
-                <input class="btn btn-hover" type="submit" value="Resize">
-            </form>
-        </div>
+        <form id="image-process">
+            <div class="operations-wrapper">
+                <div class="form-wrapper">
+                    <input type="number" min="1" name="size" required>
+                    <select name="dimension">
+                        <option value="width">Width</option>
+                        <option value="height">Height</option>
+                    </select>
+                    <select name="unit">
+                        <option value="px">Pixels</option>
+                        <option value="%">Percent</option>
+                    </select>
+                </div>
+                <div class="form-wrapper">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="resize" id="resize">
+                        <label for="resize">Apply</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="operations-wrapper">
+                <div class="form-wrapper">
+                    <input type="number" min="-360" max="360" step=".1" name="degrees" required>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="expand" id="expand" checked>
+                    <label for="expand">Expand</label>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="clockwise" id="clockwise">
+                        <label for="clockwise">Clockwise</label>
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="rotate" id="rotate">
+                        <label for="rotate">Apply</label>
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-wrapper">
+                <input class="btn btn-hover btn-fullwidth" type="submit" value="Submit">
+            </div>
+        </form>
+        
         <div class="form-wrapper">
             <form id="image-upload-form">
                 <!-- Allow some basic image tpyes for now. -->

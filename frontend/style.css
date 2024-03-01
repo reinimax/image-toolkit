@@ -33,7 +33,8 @@ input,
 button,
 a.btn,
 input[type="file"]::file-selector-button,
-select {
+select,
+.checkbox-wrapper {
     display: inline-block;
     background-color: white;
     border: 2px solid black;
@@ -50,6 +51,11 @@ input[type="number"] {
     max-width: 120px;
 }
 
+.checkbox-wrapper input {
+    margin: 0;
+    vertical-align: middle;
+}
+
 .btn, input[type="file"]::file-selector-button {
     cursor: pointer;
 }
@@ -62,4 +68,17 @@ input[type="number"] {
 #image-upload-form {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-fullwidth {
+    width: 100%;
+}
+
+.operations-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
