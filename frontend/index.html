@@ -24,12 +24,12 @@
         <form id="image-process">
             <div class="operations-wrapper">
                 <div class="form-wrapper">
-                    <input type="number" min="1" name="size">
-                    <select name="dimension">
+                    <input type="number" min="1" name="resize_size">
+                    <select name="resize_dimension">
                         <option value="width">Width</option>
                         <option value="height">Height</option>
                     </select>
-                    <select name="unit">
+                    <select name="resize_unit">
                         <option value="px">Pixels</option>
                         <option value="%">Percent</option>
                     </select>
@@ -44,14 +44,14 @@
             
             <div class="operations-wrapper">
                 <div class="form-wrapper">
-                    <input type="number" min="-360" max="360" step=".1" name="degrees">
+                    <input type="number" min="-360" max="360" step=".1" name="rotate_degrees">
                     <div class="checkbox-wrapper">
-                        <input type="checkbox" name="expand" id="expand" checked>
-                    <label for="expand">Expand</label>
+                        <input type="checkbox" name="rotate_expand" id="rotate_expand" checked>
+                    <label for="rotate_expand">Expand</label>
                     </div>
                     <div class="checkbox-wrapper">
-                        <input type="checkbox" name="clockwise" id="clockwise">
-                        <label for="clockwise">Clockwise</label>
+                        <input type="checkbox" name="rotate_clockwise" id="rotate_clockwise">
+                        <label for="rotate_clockwise">Clockwise</label>
                     </div>
                 </div>
                 <div class="form-wrapper">

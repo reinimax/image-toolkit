@@ -68,23 +68,52 @@ async function makeRequest(operation) {
     return await response.json();
 }
 
-async function resize(e) {
-    e.preventDefault();
-    // Get formdata, see https://stackoverflow.com/a/66407161
-    const formData = new FormData(e.target);
-    const formProps = Object.fromEntries(formData);
-    const size = formProps.size + formProps.unit
-    const dimension = `${formProps.dimension}`;
+async function resize(size, unit, dimension) {
     const operation = {
         "name": "resize",
     }
-    operation[dimension] = size;
+    operation[dimension] = size + unit;
     const response = await makeRequest(operation);
     const mimeType = "image/" + response.metadata.format;
     previewImage(response.processed_image, mimeType);
 }
 
+async function rotate(degrees, expand, clockwise) {
+    console.log(degrees);
+    console.log(Boolean(expand));
+    console.log(Boolean(clockwise));
+}
+
+function processImage(e) {
+    e.preventDefault();
+    // Map of supported functions and their arguments
+    const processingFunctions = {
+        resize: {
+            callback: resize,
+            args: ["resize_size", "resize_unit", "resize_dimension"]
+            // TODO we could add validation here too, e.g. for required fields.
+        },
+        rotate: {
+            callback: rotate,
+            args: ["rotate_degrees", "rotate_expand", "rotate_clockwise"]
+        }
+    }
+    // Get formdata, see https://stackoverflow.com/a/66407161
+    const formData = new FormData(e.target);
+    const formProps = Object.fromEntries(formData);
+    
+    for (functionName in processingFunctions) {
+        if (formProps[functionName] && typeof processingFunctions[functionName]["callback"] === "function") {
+            const args = [];
+            for (arg of processingFunctions[functionName]["args"]) {
+                args.push(formProps[arg]);
+            }
+            processingFunctions[functionName]["callback"](...args)
+        }
+    }
+}
+
 document.addEventListener("DOMContentLoaded", e => {
     document.querySelector("#image-upload-form").addEventListener("submit", handleImageUpload)
-    document.querySelector("#resize").addEventListener("submit", resize)
+    document.querySelector("#image-process").addEventListener("submit", processImage)
 });
