@@ -44,16 +44,14 @@ function handleImageUpload(e) {
     });
 }
 
-async function makeRequest(operation) {
+async function makeRequest(operations) {
     // Get the image from the preview
     const img = document.querySelector("#image-preview")
     const mimeType = img.dataset.mimeType
     const imgBase64 = removeDataUrlPrefix(img.src, mimeType)
     // Build the payload
     const payload = {
-        "operations": [
-            operation
-        ],
+        "operations": operations,
         "original_image": imgBase64
     }
     // Actually make the request to the API
@@ -68,7 +66,7 @@ async function makeRequest(operation) {
     return await response.json();
 }
 
-async function resize(size, unit, dimension) {
+function resize(size, unit, dimension) {
     // Validate that size is a positive number
     const errorbox = document.querySelector("#resize-wrapper .form-error");
     if (size <= 1) {
@@ -81,18 +79,27 @@ async function resize(size, unit, dimension) {
         "name": "resize",
     }
     operation[dimension] = size + unit;
-    const response = await makeRequest(operation);
-    const mimeType = "image/" + response.metadata.format;
-    previewImage(response.processed_image, mimeType);
+    return operation;
 }
 
-async function rotate(degrees, expand, clockwise) {
-    console.log(degrees);
-    console.log(Boolean(expand));
-    console.log(Boolean(clockwise));
+function rotate(degrees, expand, clockwise) {
+    // Validate degrees
+    const errorbox = document.querySelector("#rotate-wrapper .form-error");
+    if (!degrees || degrees < -360 || degrees > 360) {
+        errorbox.textContent = "Degrees is required and must be a non-zero number between -360 and 360.";
+    } else {
+        errorbox.textContent = "";
+    }
+
+    return {
+        "name": "rotate",
+        "degrees": degrees,
+        "expand": Boolean(expand),
+        "clockwise": Boolean(clockwise)
+    }
 }
 
-function processImage(e) {
+async function processImage(e) {
     e.preventDefault();
 
     // Validate if there is actually an image to submit
@@ -123,15 +130,20 @@ function processImage(e) {
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
     
+    const operations = [];
     for (functionName in processingFunctions) {
         if (formProps[functionName] && typeof processingFunctions[functionName]["callback"] === "function") {
             const args = [];
             for (arg of processingFunctions[functionName]["args"]) {
                 args.push(formProps[arg]);
             }
-            processingFunctions[functionName]["callback"](...args)
+            const operation = processingFunctions[functionName]["callback"](...args);
+            operations.push(operation);
         }
     }
+    const response = await makeRequest(operations);
+    const mimeType = "image/" + response.metadata.format;
+    previewImage(response.processed_image, mimeType);
 }
 
 document.addEventListener("DOMContentLoaded", e => {
