@@ -10,7 +10,7 @@ CORS(app)
 @app.route("/image-process", methods=["POST"])
 def image_process():
     """Process the image using the requested operations and return the processed image."""
-    payload = request.json
+    payload = request.get_json()
     # Validate image
     original_image = payload.get("original_image")
     if not original_image:
@@ -43,7 +43,7 @@ def image_process():
             # provided to the API.
             provided_args = {}
             for arg in argslist:
-                if (operation.get(arg)):
+                if (operation.get(arg) != None):
                     provided_args[arg] = operation.get(arg)
             # Call the requested function. If anything goes wrong, we just skip the operation.
             try:
