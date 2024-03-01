@@ -101,3 +101,11 @@ h2.operations-headline {
     background: white;
     padding: 0 10px;
 }
+
+.form-error {
+    width: 100%;
+    text-align: start;
+    padding: 0.5em;
+    font-size: 0.8em;
+    color: red;
+}

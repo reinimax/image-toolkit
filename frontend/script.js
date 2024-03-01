@@ -69,6 +69,9 @@ async function makeRequest(operation) {
 }
 
 async function resize(size, unit, dimension) {
+    // TODO validate that size is a positive number
+    console.log(size >= 1);
+
     const operation = {
         "name": "resize",
     }
@@ -86,18 +89,31 @@ async function rotate(degrees, expand, clockwise) {
 
 function processImage(e) {
     e.preventDefault();
+
+    // Validate if there is actually an image to submit
+    const img = document.querySelector("#image-preview")
+    const errorbox = document.querySelector("#image-upload-form .form-error");
+    if (!img.src) {
+        const errorbox = document.querySelector("#image-upload-form .form-error");
+        errorbox.textContent = "You must first upload an image!";
+    } 
+    // If there is an image, get rid of any previously displayed error message.
+    else {
+        errorbox.textContent = "";
+    }
+
     // Map of supported functions and their arguments
     const processingFunctions = {
         resize: {
             callback: resize,
             args: ["resize_size", "resize_unit", "resize_dimension"]
-            // TODO we could add validation here too, e.g. for required fields.
         },
         rotate: {
             callback: rotate,
             args: ["rotate_degrees", "rotate_expand", "rotate_clockwise"]
         }
     }
+    
     // Get formdata, see https://stackoverflow.com/a/66407161
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
