@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 img {
@@ -48,7 +49,7 @@ select,
 }
 
 input[type="number"] {
-    max-width: 120px;
+    max-width: 110px;
 }
 
 .checkbox-wrapper input {
