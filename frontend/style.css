@@ -111,7 +111,7 @@ h2.operations-headline {
     color: red;
 }
 
-#webp_quality, #jpeg_quality, #png_quality {
+#webp_quality, #jpeg_quality, #png_compression {
     min-width: 120px;
     max-width: 120px;
 }
