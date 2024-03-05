@@ -1,3 +1,5 @@
+let submitBtn = null;
+
 function removeDataUrlPrefix(str, mimeType) {
     return str.replace(`data:${mimeType};base64,`, "");
 }
@@ -26,6 +28,7 @@ function previewImage(base64Str, mimeType) {
     // Update the view and download links
     document.querySelector("#image-download-btn").href = dataUrl;
     updateImageViewLink(dataUrl, mimeType);
+    submitBtn.value = "Submit";
 }
 
 function handleImageUpload(e) {
@@ -168,7 +171,7 @@ async function processImage(e) {
             convert["optimize"] = Boolean(formProps["png_optimize"])
         }
     }
-
+    submitBtn.value = "In progress ...";
     const response = await makeRequest(operations, convert);
     const mimeType = "image/" + response.metadata.format;
     previewImage(response.processed_image, mimeType);
@@ -177,4 +180,5 @@ async function processImage(e) {
 document.addEventListener("DOMContentLoaded", e => {
     document.querySelector("#image-upload-form").addEventListener("submit", handleImageUpload)
     document.querySelector("#image-process").addEventListener("submit", processImage)
+    submitBtn = document.querySelector("#image-process input[type=\"submit\"]")
 });
