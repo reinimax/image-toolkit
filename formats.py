@@ -33,7 +33,15 @@ def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> 
     If `lossless`is true, this will instead determine the speed of saving the image (0 = fastest, 100 = slowest).
     - lossless (bool): Whether to use lossless compression.
     """
-    # TODO add validation
+    # If we get a string, try to convert to float
+    if isinstance(quality, str):
+        try:
+            quality = float(quality)
+        except:
+            # If an invalid argument was provided, use the default instead.
+            quality = 80
+    if not isinstance(lossless, bool):
+        lossless = False
     image.save(buffer, format="webp", quality=quality, lossless=lossless)
 
 ALLOWED_FORMATS = {

@@ -106,6 +106,10 @@ def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False):
             degrees = float(degrees)
         except:
             return image
+    if not isinstance(clockwise, bool):
+        clockwise = False
+    if not isinstance(expand, bool):
+        expand = False
     # Invert degrees if we rotate clockwise.
     degrees = -degrees if clockwise else degrees
     return image.rotate(degrees, expand=expand)
