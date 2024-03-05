@@ -40,6 +40,9 @@ def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> 
         except:
             # If an invalid argument was provided, use the default instead.
             quality = 80
+    # Make sure quality is within the supported range
+    if quality < 0 or quality > 100:
+        quality = 80
     if not isinstance(lossless, bool):
         lossless = False
     image.save(buffer, format="webp", quality=quality, lossless=lossless)
