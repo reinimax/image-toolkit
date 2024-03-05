@@ -24,8 +24,21 @@ passed to the function.
 
 from PIL import Image
 from helpers import Unit, parse_dimension
+from PIL import ImageOps
 
-def resize(image:Image.Image, width:str=None, height:str=None):
+def greyscale(image:Image.Image) -> Image.Image:
+    """#Apply a greyscale filter to the image
+    
+    **Parameters:**
+    - image (Image): PIL image object
+
+    **Returns**:
+    PIL Image object
+    """
+    return ImageOps.grayscale(image)
+
+
+def resize(image:Image.Image, width:str=None, height:str=None) -> Image.Image:
     """#Resize the image to the provided dimensions
     
     **Parameters:**
@@ -79,7 +92,7 @@ def resize(image:Image.Image, width:str=None, height:str=None):
     return image.resize((width, height))
 
 
-def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False):
+def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False) -> Image.Image:
     """#Rotate the image by the provided degrees
     
     **Parameters:**
@@ -116,6 +129,7 @@ def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False):
 
 
 ALLOWED_OPERATIONS = {
+    "greyscale": greyscale,
     "resize": resize,
     "rotate": rotate
 }
