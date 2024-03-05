@@ -56,7 +56,16 @@ def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
     - buffer (BytesIO): Buffer to which the image is written
     - quality: Quality of the image. Shoulb be between 0 (lowest quality) and 95 (highest quality).
     """
-    pass
+    # If we get a string or float, convert to int. Pillow is picky and accepty only an int here.
+    if isinstance(quality, str) or isinstance(quality, float):
+        try:
+            quality = int(quality)
+        except:
+            quality = 75
+    # Make sure quality is within the supported range
+    if quality < 0 or quality > 95:
+        quality = 75
+    image.save(buffer, format="jpeg", quality=quality)
 
 
 ALLOWED_FORMATS = {
