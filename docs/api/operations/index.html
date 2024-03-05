@@ -12,6 +12,8 @@
         <link rel="prev" href="../..">
       
       
+        <link rel="next" href="../formats/">
+      
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.9">
@@ -289,6 +291,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -398,7 +421,7 @@ this JSON to the API</p>
 <p>would result in this function call: <code>resize(image, width="300px")</code>.</p>
 
 <p>Note that every image manipulation function must take an object of class 
-PIL.Image.Image as its first parameter, which will always be automatically 
+<code>PIL.Image.Image</code> as its first parameter, which will always be automatically 
 passed to the function.</p>
 </div>
 
@@ -426,7 +449,7 @@ passed to the function.</p>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">would result in this function call: `resize(image, width=&quot;300px&quot;)`.</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">Note that every image manipulation function must take an object of class </span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">PIL.Image.Image as its first parameter, which will always be automatically </span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">`PIL.Image.Image` as its first parameter, which will always be automatically </span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">passed to the function.</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
@@ -514,16 +537,20 @@ passed to the function.</p>
 </span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>            <span class="n">degrees</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span>
 </span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>        <span class="k">except</span><span class="p">:</span>
 </span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>            <span class="k">return</span> <span class="n">image</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="c1"># Invert degrees if we rotate clockwise.</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>    <span class="n">degrees</span> <span class="o">=</span> <span class="o">-</span><span class="n">degrees</span> <span class="k">if</span> <span class="n">clockwise</span> <span class="k">else</span> <span class="n">degrees</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>    <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">expand</span><span class="p">)</span>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="n">ALLOWED_OPERATIONS</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="n">resize</span><span class="p">,</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="s2">&quot;rotate&quot;</span><span class="p">:</span> <span class="n">rotate</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="p">}</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clockwise</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>        <span class="n">clockwise</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expand</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="n">expand</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>    <span class="c1"># Invert degrees if we rotate clockwise.</span>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="n">degrees</span> <span class="o">=</span> <span class="o">-</span><span class="n">degrees</span> <span class="k">if</span> <span class="n">clockwise</span> <span class="k">else</span> <span class="n">degrees</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">expand</span><span class="p">)</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="n">ALLOWED_OPERATIONS</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="s2">&quot;resize&quot;</span><span class="p">:</span> <span class="n">resize</span><span class="p">,</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="s2">&quot;rotate&quot;</span><span class="p">:</span> <span class="n">rotate</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="p">}</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
@@ -657,9 +684,13 @@ PIL Image object</p>
 </span><span id="rotate-107"><a href="#rotate-107"><span class="linenos">107</span></a>            <span class="n">degrees</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span>
 </span><span id="rotate-108"><a href="#rotate-108"><span class="linenos">108</span></a>        <span class="k">except</span><span class="p">:</span>
 </span><span id="rotate-109"><a href="#rotate-109"><span class="linenos">109</span></a>            <span class="k">return</span> <span class="n">image</span>
-</span><span id="rotate-110"><a href="#rotate-110"><span class="linenos">110</span></a>    <span class="c1"># Invert degrees if we rotate clockwise.</span>
-</span><span id="rotate-111"><a href="#rotate-111"><span class="linenos">111</span></a>    <span class="n">degrees</span> <span class="o">=</span> <span class="o">-</span><span class="n">degrees</span> <span class="k">if</span> <span class="n">clockwise</span> <span class="k">else</span> <span class="n">degrees</span>
-</span><span id="rotate-112"><a href="#rotate-112"><span class="linenos">112</span></a>    <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">expand</span><span class="p">)</span>
+</span><span id="rotate-110"><a href="#rotate-110"><span class="linenos">110</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">clockwise</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="rotate-111"><a href="#rotate-111"><span class="linenos">111</span></a>        <span class="n">clockwise</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="rotate-112"><a href="#rotate-112"><span class="linenos">112</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expand</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="rotate-113"><a href="#rotate-113"><span class="linenos">113</span></a>        <span class="n">expand</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="rotate-114"><a href="#rotate-114"><span class="linenos">114</span></a>    <span class="c1"># Invert degrees if we rotate clockwise.</span>
+</span><span id="rotate-115"><a href="#rotate-115"><span class="linenos">115</span></a>    <span class="n">degrees</span> <span class="o">=</span> <span class="o">-</span><span class="n">degrees</span> <span class="k">if</span> <span class="n">clockwise</span> <span class="k">else</span> <span class="n">degrees</span>
+</span><span id="rotate-116"><a href="#rotate-116"><span class="linenos">116</span></a>    <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">expand</span><span class="p">)</span>
 </span></pre></div>
 
 

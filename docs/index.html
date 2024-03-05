@@ -519,6 +519,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -807,6 +828,8 @@ that will be called to do the work.</p>
 &quot;width&quot;: 300.0 // this works too, but is considered bad practice
 &quot;width&quot;: &quot;50%&quot; // 50 percent
 </code></pre>
+<p>Optionally, within the key <code>return_as</code>, you can also provide a format in which the image should be returned, along with some options for image quality. Refer to the <a href="/api/formats/">Supported formats page</a> for more details.
+If <code>return_as</code> is ommitted or contains an invalid format, the image will be returned in the same format in which it was submitted.</p>
 <p>A complete payload might look like this:</p>
 <pre><code>{
     &quot;operations&quot;: [
@@ -820,6 +843,11 @@ that will be called to do the work.</p>
         },
         // ... any other operations you like to perform.
     ],
+    // optional return format and options
+    &quot;return_as&quot;: {
+        &quot;format&quot;: &quot;webp&quot;,
+        &quot;quality&quot;: 80
+    },
     &quot;original_image&quot;: &quot;...&quot; // base64-encoded image
 }
 </code></pre>
@@ -844,14 +872,16 @@ that will be called to do the work.</p>
 <p>However, I tried to design this API pretty robust and forgiving, so (hopefully) what you'll see more often is just some operation not being performed if you forgot an argument or mistyped something.</p>
 <p>You can look up the available processing functions and the arguments they expect in the <a href="/api/operations/">API documentation</a> (ignore the <code>image</code> argument, as this will be passed in automatically).</p>
 <h5 id="accepted-file-formats">Accepted file formats</h5>
-<p>tbd (refer to the <a href="https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html">pillow documentation</a>)</p>
+<p>The <a href="/api/formats/">supported formats page</a> lists the formats that the API is guaranteed to accept and return. Other image formats <em>may</em> work as input.
+Refer to the <a href="https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html">pillow documentation</a> to see which formats <em>may</em> work.</p>
 <h2 id="a-short-tour-of-the-repo">A short tour of the repo</h2>
 <p>This repository consists of 4 main parts:</p>
 <h3 id="the-backendapi">The backend/API</h3>
-<p>This is a flask application, consisting of 4 files:</p>
+<p>This is a flask application, consisting of these files:</p>
 <ul>
 <li><code>app.py</code>defines the routing and interface of the API.</li>
 <li><code>operations.py</code> defines the available image manipulation operations.</li>
+<li><code>formats.py</code> defines the supported formats that the API can convert images into.</li>
 <li><code>helpers.py</code> defines some helper functions.</li>
 <li><code>requirements.txt</code> defines the libraries used by the application.</li>
 </ul>
@@ -874,6 +904,10 @@ that will be called to do the work.</p>
 There is only one API endpoint, which takes a lot of parameters. OpenAPI is great if you have a lot of small endpoints and methods, but that's not the case here. What I really needed was
 to document the single image manipulation operations. At the end, I decided to use <a href="https://pdoc.dev/">pdoc</a>, an easy to use library that generates pretty neat documentation and integrate it with <a href="https://www.mkdocs.org/">mkdocs</a>, linking this README file to the generated documentations index file using <a href="https://github.com/facelessuser/pymdown-extensions">pymdown-extensions</a>.</li>
 <li>In a similar vein, I looked into <a href="https://apiflask.com/">APIflask</a> which has some neat features. But in the end I decided to stick with vanilla Flask and making some adoptions manually (e.g. making sure error responses are always sent as JSON instead of text/html). The reason is, I wanted to keep things simple and avoid the application being overloaded with features that I don't really use, especially since I decided against going with the OpenAPI approach.</li>
+<li>For implementing different formats in which the image can be returned, I decided to follow an approach very similar to the one for operations: Create a new file that defines saving functions and dynamically call them if a valid image format was submitted. I tried first a simpler approach with dynamically passing arguments to the <code>save</code> function of the <code>Image</code> class. This is less code, but I decided against it for 2 reasons: 
+First, defining custom save functions allows for better auto-generated documentation. 
+And second, perhaps more important, it allows for providing default arguments that are different from the ones provided by Pillow, and for additional validation.
+The chosen approach is more verbose, but I find it also more robust and explicit.</li>
 </ul>
 <h2 id="acknowledgements">Acknowledgements</h2>
 <ul>
