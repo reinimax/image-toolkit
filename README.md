@@ -51,7 +51,8 @@ Optionally, each operation accepts arguments that specify how the image should b
 "width": "50%" // 50 percent
 ```
 
-Optionally, you can also provide a format in which the image should be returned, along with some options for image quality. Refer to the [Supported formats page](/api/formats/) for more details.
+Optionally, within the key `return_as`, you can also provide a format in which the image should be returned, along with some options for image quality. Refer to the [Supported formats page](/api/formats/) for more details.
+If `return_as` is ommitted or contains an invalid format, the image will be returned in the same format in which it was submitted.
 
 A complete payload might look like this:
 ```
@@ -67,6 +68,7 @@ A complete payload might look like this:
         },
         // ... any other operations you like to perform.
     ],
+    // optional return format and options
     "return_as": {
         "format": "webp",
         "quality": 80
