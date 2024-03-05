@@ -25,7 +25,7 @@
             <div class="operations-wrapper" id="resize-wrapper">
                 <div class="form-wrapper form-wrapper-caption">
                     <h2 class="operations-headline">resize</h2>
-                    <input type="number" min="1" name="resize_size">
+                    <input type="number" min="1" name="resize_size" placeholder="W/H">
                     <select name="resize_dimension">
                         <option value="width">Width</option>
                         <option value="height">Height</option>
@@ -47,7 +47,7 @@
             <div class="operations-wrapper" id="rotate-wrapper">
                 <div class="form-wrapper form-wrapper-caption">
                     <h2 class="operations-headline">rotate</h2>
-                    <input type="number" min="-360" max="360" step=".1" name="rotate_degrees">
+                    <input type="number" min="-360" max="360" step=".1" name="rotate_degrees" placeholder="Deg">
                     <div class="checkbox-wrapper">
                         <input type="checkbox" name="rotate_expand" id="rotate_expand" checked>
                     <label for="rotate_expand">Expand</label>
@@ -62,6 +62,37 @@
                     <div class="checkbox-wrapper">
                         <input type="checkbox" name="rotate" id="rotate">
                         <label for="rotate">Apply</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="operations-wrapper" id="convert-wrapper">
+                <div class="form-wrapper form-wrapper-caption">
+                    <h2 class="operations-headline">convert to</h2>
+                    <div class="form-wrapper">
+                        <input type="radio" id="jpeg" name="convert_format" value="jpeg">
+                        <label for="jpeg">JPEG</label>
+                        <!-- TODO add options -->
+                    </div>
+                    <div class="form-wrapper">
+                        <input type="radio" id="png" name="convert_format" value="png">
+                        <label for="png">PNG</label>
+                        <!-- TODO add options -->
+                    </div>
+                    <div class="form-wrapper">
+                        <input type="radio" id="webp" name="convert_format" value="webp">
+                        <label for="webp">WEBP</label>
+                        <input type="number" min="0" max="100" id="webp_quality" name="webp_quality" placeholder="Quality">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" name="webp_lossless" id="webp_lossless">
+                            <label for="webp_lossless">Lossless</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrapper form-wrapper-caption">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="convert" id="convert">
+                        <label for="convert">Apply</label>
                     </div>
                 </div>
             </div>
