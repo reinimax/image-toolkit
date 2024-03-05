@@ -23,6 +23,26 @@ The image should be saved to this buffer.
 from io import BytesIO
 from PIL import Image
 
+def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
+    """#Convert image to jpeg format.
+
+    **Parameters:**
+    - image (Image): PIL image object
+    - buffer (BytesIO): Buffer to which the image is written
+    - quality: Quality of the image. Shoulb be between 0 (lowest quality) and 95 (highest quality).
+    """
+    # If we get a string or float, convert to int. Pillow is picky and accepty only an int here.
+    if isinstance(quality, str) or isinstance(quality, float):
+        try:
+            quality = int(quality)
+        except:
+            quality = 75
+    # Make sure quality is within the supported range
+    if quality < 0 or quality > 95:
+        quality = 75
+    image.save(buffer, format="jpeg", quality=quality)
+
+
 def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> None:
     """#Convert image to webp format.
 
@@ -46,26 +66,6 @@ def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> 
     if not isinstance(lossless, bool):
         lossless = False
     image.save(buffer, format="webp", quality=quality, lossless=lossless)
-
-
-def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
-    """#Convert image to jpeg format.
-
-    **Parameters:**
-    - image (Image): PIL image object
-    - buffer (BytesIO): Buffer to which the image is written
-    - quality: Quality of the image. Shoulb be between 0 (lowest quality) and 95 (highest quality).
-    """
-    # If we get a string or float, convert to int. Pillow is picky and accepty only an int here.
-    if isinstance(quality, str) or isinstance(quality, float):
-        try:
-            quality = int(quality)
-        except:
-            quality = 75
-    # Make sure quality is within the supported range
-    if quality < 0 or quality > 95:
-        quality = 75
-    image.save(buffer, format="jpeg", quality=quality)
 
 
 ALLOWED_FORMATS = {
