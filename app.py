@@ -3,6 +3,7 @@ from flask_cors import CORS
 import base64, io, binascii, inspect
 from PIL import Image
 from operations import ALLOWED_OPERATIONS
+from formats import ALLOWED_FORMATS
 
 app = Flask(__name__)
 CORS(app)
@@ -53,7 +54,27 @@ def image_process():
                 continue
     # Create a buffer in memory and save the processed image to it.
     processed_image = io.BytesIO()
-    image.save(processed_image, format=image_format)
+    saving_options = payload.get("return_as")
+    if saving_options and saving_options.get("format", "").lower() in ALLOWED_FORMATS:
+        # Update image format
+        image_format = saving_options.get("format", "").lower()
+        # TODO extract this and the code above for operations into a helper!
+        func = ALLOWED_FORMATS[image_format]
+        argslist = inspect.getfullargspec(func)[0]
+        argslist.remove("image")
+        argslist.remove("buffer")
+        provided_args = {}
+        for arg in argslist:
+                if (saving_options.get(arg) != None):
+                    provided_args[arg] = saving_options.get(arg)
+        # Try to call the saving function. If something goes wrong, 
+        # save the image instead without the provided args.
+        try:
+            func(image, processed_image, **provided_args)
+        except:
+            image.save(processed_image, format=image_format)
+    else:
+        image.save(processed_image, format=image_format)
     width, height = image.size
     procsessed_image_encoded = base64.b64encode(processed_image.getvalue()).decode()
     raw_image.close()
