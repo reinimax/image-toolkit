@@ -44,7 +44,7 @@ function handleImageUpload(e) {
     });
 }
 
-async function makeRequest(operations) {
+async function makeRequest(operations, convert=null) {
     // Get the image from the preview
     const img = document.querySelector("#image-preview")
     const mimeType = img.dataset.mimeType
@@ -53,6 +53,9 @@ async function makeRequest(operations) {
     const payload = {
         "operations": operations,
         "original_image": imgBase64
+    }
+    if (convert) {
+        payload["return_as"] = convert;
     }
     // Actually make the request to the API
     // TODO change this to the real URL 
@@ -108,6 +111,7 @@ async function processImage(e) {
     if (!img.src) {
         const errorbox = document.querySelector("#image-upload-form .form-error");
         errorbox.textContent = "You must first upload an image!";
+        return;
     } 
     // If there is an image, get rid of any previously displayed error message.
     else {
@@ -141,7 +145,21 @@ async function processImage(e) {
             operations.push(operation);
         }
     }
-    const response = await makeRequest(operations);
+
+    let convert = null
+    if (formProps["convert"] && formProps["convert_format"]) {
+        convert = {
+            "format": formProps["convert_format"]
+        }
+        if (formProps["convert_format"] === 'webp') {
+            if (formProps["webp_quality"] && formProps["webp_quality"] >= 0 && formProps["webp_quality"] <= 100) {
+                convert["quality"] = formProps["webp_quality"];
+            }
+            convert["lossless"] = Boolean(formProps["webp_lossless"])
+        }
+    }
+
+    const response = await makeRequest(operations, convert);
     const mimeType = "image/" + response.metadata.format;
     previewImage(response.processed_image, mimeType);
 }
