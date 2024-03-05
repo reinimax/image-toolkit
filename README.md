@@ -51,6 +51,8 @@ Optionally, each operation accepts arguments that specify how the image should b
 "width": "50%" // 50 percent
 ```
 
+Optionally, you can also provide a format in which the image should be returned, along with some options for image quality. Refer to the [Supported formats page](/api/formats/) for more details.
+
 A complete payload might look like this:
 ```
 {
@@ -65,6 +67,10 @@ A complete payload might look like this:
         },
         // ... any other operations you like to perform.
     ],
+    "return_as": {
+        "format": "webp",
+        "quality": 80
+    },
     "original_image": "..." // base64-encoded image
 }
 ```
@@ -97,16 +103,18 @@ However, I tried to design this API pretty robust and forgiving, so (hopefully) 
 You can look up the available processing functions and the arguments they expect in the [API documentation](/api/operations/) (ignore the `image` argument, as this will be passed in automatically).
 
 ##### Accepted file formats
-tbd (refer to the [pillow documentation](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html))
+The [supported formats page](/api/formats/) lists the formats that the API is guaranteed to accept and return. Other image formats *may* work as input.
+Refer to the [pillow documentation](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html) to see which formats *may* work.
 
 ## A short tour of the repo
 This repository consists of 4 main parts:
 
 ### The backend/API
-This is a flask application, consisting of 4 files:
+This is a flask application, consisting of these files:
 
 - `app.py`defines the routing and interface of the API.
 - `operations.py` defines the available image manipulation operations.
+- `formats.py` defines the supported formats that the API can convert images into.
 - `helpers.py` defines some helper functions.
 - `requirements.txt` defines the libraries used by the application.
 
@@ -130,6 +138,10 @@ There are a number of files dedicated to auto-generating documentation and [inte
 There is only one API endpoint, which takes a lot of parameters. OpenAPI is great if you have a lot of small endpoints and methods, but that's not the case here. What I really needed was
 to document the single image manipulation operations. At the end, I decided to use [pdoc](https://pdoc.dev/), an easy to use library that generates pretty neat documentation and integrate it with [mkdocs](https://www.mkdocs.org/), linking this README file to the generated documentations index file using [pymdown-extensions](https://github.com/facelessuser/pymdown-extensions).
 - In a similar vein, I looked into [APIflask](https://apiflask.com/) which has some neat features. But in the end I decided to stick with vanilla Flask and making some adoptions manually (e.g. making sure error responses are always sent as JSON instead of text/html). The reason is, I wanted to keep things simple and avoid the application being overloaded with features that I don't really use, especially since I decided against going with the OpenAPI approach.
+- For implementing different formats in which the image can be returned, I decided to follow an approach very similar to the one for operations: Create a new file that defines saving functions and dynamically call them if a valid image format was submitted. I tried first a simpler approach with dynamically passing arguments to the `save` function of the `Image` class. This is less code, but I decided against it for 2 reasons: 
+First, defining custom save functions allows for better auto-generated documentation. 
+And second, perhaps more important, it allows for providing default arguments that are different from the ones provided by Pillow, and for additional validation.
+The chosen approach is more verbose, but I find it also more robust and explicit.
 
 ## Acknowledgements
 - Huge thanks to [HuggingChat](https://huggingface.co/chat/) for providing suggestions and feeback regarding some initial design decisions ([link to the chat](https://hf.co/chat/r/Oqo8rfK))

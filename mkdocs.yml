@@ -13,6 +13,7 @@ nav:
     - Home: 'index.md'
     - 'API Reference':
         - 'Processing functions': 'api/operations.md'
+        - 'Supported formats': 'api/formats.md'
 # Custom JS for moving pdoc navigation to the sidebar
 extra_javascript:
   - custom.js

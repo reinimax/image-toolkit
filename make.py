@@ -14,6 +14,7 @@ if out.exists():
 # Render documentation into docs/api...
 render.configure(template_directory=here / "pdoc-template")
 pdoc("operations", output_directory=out)
+pdoc("formats", output_directory=out)
 
 # ...and rename the .html files to .md so that mkdocs picks them up!
 for f in out.glob("**/*.html"):
