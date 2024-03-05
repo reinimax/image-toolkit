@@ -157,9 +157,15 @@ async function processImage(e) {
             }
             convert["lossless"] = Boolean(formProps["webp_lossless"])
         } else if (formProps["convert_format"] === 'jpeg') {
-            if (formProps["jpeg_quality"] && formProps["jpeg_quality"] >= 0 && formProps["jpeg_quality"] <= 100) {
+            if (formProps["jpeg_quality"] && formProps["jpeg_quality"] >= 0 && formProps["jpeg_quality"] <= 95) {
                 convert["quality"] = formProps["jpeg_quality"];
             }
+        }
+        else if (formProps["convert_format"] === 'png') {
+            if (formProps["png_compression"] && formProps["png_compression"] >= 0 && formProps["png_compression"] <= 9) {
+                convert["compress_level"] = formProps["png_compression"];
+            }
+            convert["optimize"] = Boolean(formProps["png_optimize"])
         }
     }
 
