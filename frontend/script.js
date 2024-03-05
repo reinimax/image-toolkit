@@ -156,6 +156,10 @@ async function processImage(e) {
                 convert["quality"] = formProps["webp_quality"];
             }
             convert["lossless"] = Boolean(formProps["webp_lossless"])
+        } else if (formProps["convert_format"] === 'jpeg') {
+            if (formProps["jpeg_quality"] && formProps["jpeg_quality"] >= 0 && formProps["jpeg_quality"] <= 100) {
+                convert["quality"] = formProps["jpeg_quality"];
+            }
         }
     }
 
