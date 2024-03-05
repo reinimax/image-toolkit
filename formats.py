@@ -44,7 +44,20 @@ def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> 
         lossless = False
     image.save(buffer, format="webp", quality=quality, lossless=lossless)
 
+
+def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
+    """#Convert image to jpeg format.
+
+    **Parameters:**
+    - image (Image): PIL image object
+    - buffer (BytesIO): Buffer to which the image is written
+    - quality: Quality of the image. Shoulb be between 0 (lowest quality) and 95 (highest quality).
+    """
+    pass
+
+
 ALLOWED_FORMATS = {
+    "jpeg": jpeg,
     "webp": webp
 }
 """@private"""
