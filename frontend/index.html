@@ -36,7 +36,7 @@
                     </select>
                     <div class="form-error"></div>
                 </div>
-                <div class="form-wrapper form-wrapper-caption">
+                <div class="form-wrapper form-wrapper-caption operation-btn">
                     <div class="checkbox-wrapper">
                         <input type="checkbox" name="resize" id="resize">
                         <label for="resize">Apply</label>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="form-error"></div>
                 </div>
-                <div class="form-wrapper form-wrapper-caption">
+                <div class="form-wrapper form-wrapper-caption operation-btn">
                     <div class="checkbox-wrapper">
                         <input type="checkbox" name="rotate" id="rotate">
                         <label for="rotate">Apply</label>
@@ -77,7 +77,14 @@
                     <div class="form-wrapper">
                         <input type="radio" id="png" name="convert_format" value="png">
                         <label for="png">PNG</label>
-                        <!-- TODO add options -->
+                        <input type="number" min="0" max="9" id="png_quality" name="png_quality" placeholder="Compr">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" name="png_optimize" id="png_optimize">
+                            <label for="png_optimize">Optimize</label>
+                        </div>
+                        <div class="text-small">
+                            Compression must be between 0 and 9. 0 means no compression, 9 maximum compression.
+                        </div>
                     </div>
                     <div class="form-wrapper">
                         <input type="radio" id="webp" name="convert_format" value="webp">
@@ -89,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-wrapper form-wrapper-caption">
+                <div class="form-wrapper form-wrapper-caption operation-btn">
                     <div class="checkbox-wrapper">
                         <input type="checkbox" name="convert" id="convert">
                         <label for="convert">Apply</label>

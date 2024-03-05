@@ -111,7 +111,16 @@ h2.operations-headline {
     color: red;
 }
 
-#webp_quality, #jpeg_quality {
+#webp_quality, #jpeg_quality, #png_quality {
     min-width: 120px;
     max-width: 120px;
+}
+
+.text-small {
+    font-size: 0.8em;
+    padding: 0.25em;
+}
+
+.operation-btn {
+    flex-shrink: 0;
 }
