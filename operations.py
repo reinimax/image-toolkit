@@ -18,7 +18,7 @@ this JSON to the API
 would result in this function call: `resize(image, width="300px")`.
 
 Note that every image manipulation function must take an object of class 
-PIL.Image.Image as its first parameter, which will always be automatically 
+`PIL.Image.Image` as its first parameter, which will always be automatically 
 passed to the function.
 """
 
