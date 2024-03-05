@@ -26,9 +26,13 @@ def image_process():
         return {"error": "Operations must be a list."}
     # Load the bytes of the decoded image directly into memory, without creating a temporary file.
     raw_image = io.BytesIO(original_image_decoded)
-    image = Image.open(raw_image)
-    # Remember image format
-    image_format = image.format.lower()
+    try:
+        image = Image.open(raw_image)
+        # Remember image format
+        image_format = image.format.lower()
+    except:
+        return {"error": "Unuspported image format."}
+    # Perform image manipulation operations.
     for operation in operations:
         # Ignore keys that don't follow the format of a dict.
         if not isinstance(operation, dict):
