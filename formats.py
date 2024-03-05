@@ -43,6 +43,28 @@ def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
     image.save(buffer, format="jpeg", quality=quality)
 
 
+def png(image:Image.Image, buffer:BytesIO, compress_level=6, optimize:bool=False) -> None:
+    """#Convert image to png format.
+
+    **Parameters:**
+    - image (Image): PIL image object
+    - buffer (BytesIO): Buffer to which the image is written
+    - compress_level: Must be between 0 and 9. 0 means no compression, 9 means maximum compression.
+    If `optimize`is true, `compress_level` is always 9.
+    - optimize (bool): If true, the image will be made as small as possible.
+    """
+    if isinstance(compress_level, str) or isinstance(compress_level, float):
+        try:
+            compress_level = int(compress_level)
+        except:
+            compress_level = 6
+    if compress_level < 0 or compress_level > 9:
+        compress_level = 6
+    if not isinstance(optimize, bool):
+        optimize = False
+    image.save(buffer, format="png", compress_level=compress_level, optimize=optimize)
+
+
 def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> None:
     """#Convert image to webp format.
 
@@ -70,6 +92,7 @@ def webp(image:Image.Image, buffer:BytesIO, quality=80, lossless:bool=False) -> 
 
 ALLOWED_FORMATS = {
     "jpeg": jpeg,
+    "png": png,
     "webp": webp
 }
 """@private"""
