@@ -5,8 +5,7 @@ Image toolkit  is a service for basic image manipulation. It features a website 
 
 ### Links
 - [Documentation is hosted on Github](https://reinimax.github.io/image-toolkit/)
-- Backend hosting tbd
-- Frendend hosting tbd
+- [Backend](https://reinimax.eu.pythonanywhere.com/image-process) and [Frontend](https://reinimax.eu.pythonanywhere.com/frontend/) are hosted on [Python Anywhere](https://www.pythonanywhere.com/)
 
 ### Installation
 1. Set up virtual environment: `python3 -m venv .venv`
@@ -17,7 +16,9 @@ Note: You can exit the virtual environment by typing `deactivate`. [Learn more a
 
 ### Run the service locally
 
-Activate the virtual environment and type `flask run`.
+Activate the virtual environment and type `flask run`. If you want to use the frontend locally, you need to set up an additional local server 
+(for development, I used the excellent [LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) VSCode extension) and change the 
+`BASE_URL`constant in `frontend/script.js` to point to Flasks local server.
 
 ### (Self-) Host the service
 
@@ -150,6 +151,7 @@ The chosen approach is more verbose, but I find it also more robust and explicit
 ## Acknowledgements
 - Huge thanks to [HuggingChat](https://huggingface.co/chat/) for providing suggestions and feeback regarding some initial design decisions ([link to the chat](https://hf.co/chat/r/Oqo8rfK))
 and for help with debugging some stuff.
+- Huge thanks also to [Python anywhere](https://www.pythonanywhere.com/) which provides a free hosting tier, on which this project is hosted.
 - This project would not have been possible without some amazing libraries. See below for a list of projects this project relies on.
 
 ## Powerd by
