@@ -22,9 +22,20 @@ Note that every image manipulation function must take an object of class
 passed to the function.
 """
 
-from PIL import Image
+from PIL import Image, ImageOps, ImageFilter
 from helpers import Unit, parse_dimension
-from PIL import ImageOps
+
+def blur(image:Image.Image) -> Image.Image:
+    """#Apply a blur filter to the image
+    
+    **Parameters:**
+    - image (Image): PIL image object
+
+    **Returns**:
+    PIL Image object
+    """
+    return image.filter(filter=ImageFilter.BLUR)
+
 
 def greyscale(image:Image.Image) -> Image.Image:
     """#Apply a greyscale filter to the image
@@ -129,6 +140,7 @@ def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False) -
 
 
 ALLOWED_OPERATIONS = {
+    "blur": blur,
     "greyscale": greyscale,
     "resize": resize,
     "rotate": rotate
