@@ -124,3 +124,7 @@ h2.operations-headline {
 .operation-btn {
     flex-shrink: 0;
 }
+
+.full-width {
+    width: 100%;
+}

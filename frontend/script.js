@@ -105,6 +105,12 @@ function rotate(degrees, expand, clockwise) {
     }
 }
 
+function filter_greyscale() {
+    return {
+        "name": "greyscale"
+    }
+}
+
 async function processImage(e) {
     e.preventDefault();
 
@@ -130,6 +136,10 @@ async function processImage(e) {
         rotate: {
             callback: rotate,
             args: ["rotate_degrees", "rotate_expand", "rotate_clockwise"]
+        },
+        filter_greyscale: {
+            callback: filter_greyscale,
+            args: []
         }
     }
 
