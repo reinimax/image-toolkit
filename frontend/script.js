@@ -111,6 +111,12 @@ function filter_greyscale() {
     }
 }
 
+function filter_blur() {
+    return {
+        "name": "blur"
+    }
+}
+
 async function processImage(e) {
     e.preventDefault();
 
@@ -139,6 +145,10 @@ async function processImage(e) {
         },
         filter_greyscale: {
             callback: filter_greyscale,
+            args: []
+        },
+        filter_blur: {
+            callback: filter_blur,
             args: []
         }
     }
