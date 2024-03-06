@@ -1,4 +1,6 @@
 let submitBtn = null;
+// If you want to run the frontend locally, change the base url to point to your local server.
+const BASE_URL = "https://reinimax.eu.pythonanywhere.com"
 
 function removeDataUrlPrefix(str, mimeType) {
     return str.replace(`data:${mimeType};base64,`, "");
@@ -59,9 +61,8 @@ async function makeRequest(operations, convert=null) {
     if (convert) {
         payload["return_as"] = convert;
     }
-    // Actually make the request to the API
-    // TODO change this to the real URL 
-    const response = await fetch('http://127.0.0.1:5000/image-process', {
+    // Actually make the request to the API 
+    const response = await fetch(BASE_URL + '/image-process', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
