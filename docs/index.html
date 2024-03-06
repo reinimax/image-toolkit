@@ -793,8 +793,7 @@
 <h3 id="links">Links</h3>
 <ul>
 <li><a href="https://reinimax.github.io/image-toolkit/">Documentation is hosted on Github</a></li>
-<li>Backend hosting tbd</li>
-<li>Frendend hosting tbd</li>
+<li><a href="https://reinimax.eu.pythonanywhere.com/image-process">Backend</a> and <a href="https://reinimax.eu.pythonanywhere.com/frontend/">Frontend</a> are hosted on <a href="https://www.pythonanywhere.com/">Python Anywhere</a></li>
 </ul>
 <h3 id="installation">Installation</h3>
 <ol>
@@ -804,7 +803,9 @@
 </ol>
 <p>Note: You can exit the virtual environment by typing <code>deactivate</code>. <a href="https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/">Learn more about virtual environments and package installation</a>.</p>
 <h3 id="run-the-service-locally">Run the service locally</h3>
-<p>Activate the virtual environment and type <code>flask run</code>.</p>
+<p>Activate the virtual environment and type <code>flask run</code>. If you want to use the frontend locally, you need to set up an additional local server 
+(for development, I used the excellent <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">LiveServer</a> VSCode extension) and change the 
+<code>BASE_URL</code>constant in <code>frontend/script.js</code> to point to Flasks local server.</p>
 <h3 id="self-host-the-service">(Self-) Host the service</h3>
 <p>tbd. Refer to <a href="https://flask.palletsprojects.com/en/3.0.x/deploying/">Flask's documentation for deploying to production</a>.</p>
 <h3 id="usage">Usage</h3>
@@ -914,6 +915,7 @@ The chosen approach is more verbose, but I find it also more robust and explicit
 <ul>
 <li>Huge thanks to <a href="https://huggingface.co/chat/">HuggingChat</a> for providing suggestions and feeback regarding some initial design decisions (<a href="https://hf.co/chat/r/Oqo8rfK">link to the chat</a>)
 and for help with debugging some stuff.</li>
+<li>Huge thanks also to <a href="https://www.pythonanywhere.com/">Python anywhere</a> which provides a free hosting tier, on which this project is hosted.</li>
 <li>This project would not have been possible without some amazing libraries. See below for a list of projects this project relies on.</li>
 </ul>
 <h2 id="powerd-by">Powerd by</h2>
