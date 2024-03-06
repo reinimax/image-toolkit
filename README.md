@@ -28,6 +28,8 @@ tbd. Refer to [Flask's documentation for deploying to production](https://flask.
 #### via the web-interface (upload form)
 tbd
 
+**Note** that the web-interface implements most, but not all functionality of the API. This is intentional to further showcase the decoupled nature of this project.
+
 #### via the API
 There is one API endpoint, `/image-process`, which expects a `POST` request with a `JSON` payload.
 
