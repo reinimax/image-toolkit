@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
-import base64, io, binascii, inspect
+import base64, io, binascii
 from PIL import Image
 from operations import ALLOWED_OPERATIONS
 from formats import ALLOWED_FORMATS
+from helpers import get_func_args
 
 app = Flask(__name__)
 CORS(app)
@@ -41,15 +42,7 @@ def image_process():
             # Get the function from the allowed operations dict.
             func = ALLOWED_OPERATIONS[operation["name"]]
             # Get a list of the arguments it takes.
-            argslist = inspect.getfullargspec(func)[0]
-            # Remove the olbigatory image parameter.
-            argslist.remove("image")
-            # For each argument that the function expects, add it to a dictionary if it was 
-            # provided to the API.
-            provided_args = {}
-            for arg in argslist:
-                if (operation.get(arg) != None):
-                    provided_args[arg] = operation.get(arg)
+            provided_args = get_func_args(func, operation, ["image"])
             # Call the requested function. If anything goes wrong, we just skip the operation.
             try:
                 # Use the unpacking operator to pass the named arguments to the function from the dict.
@@ -62,15 +55,8 @@ def image_process():
     if saving_options and saving_options.get("format", "").lower() in ALLOWED_FORMATS:
         # Update image format
         image_format = saving_options.get("format", "").lower()
-        # TODO extract this and the code above for operations into a helper!
         func = ALLOWED_FORMATS[image_format]
-        argslist = inspect.getfullargspec(func)[0]
-        argslist.remove("image")
-        argslist.remove("buffer")
-        provided_args = {}
-        for arg in argslist:
-                if (saving_options.get(arg) != None):
-                    provided_args[arg] = saving_options.get(arg)
+        provided_args = get_func_args(func, saving_options, ["image", "buffer"])
         # Try to call the saving function. If something goes wrong, 
         # save the image instead without the provided args.
         try:

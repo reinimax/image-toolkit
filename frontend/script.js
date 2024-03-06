@@ -39,7 +39,6 @@ function handleImageUpload(e) {
     reader.readAsDataURL(image)
     // When the file reader has loaded the image, it is accessible via the result property.
     // See https://developer.mozilla.org/en-US/docs/Web/API/FileReader#events for more related events.
-    // TODO: handle progress/errors
     reader.addEventListener("load", e => {
         const dataUrl = reader.result;
         const base64Img = removeDataUrlPrefix(dataUrl, mimeType);
