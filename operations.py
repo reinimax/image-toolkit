@@ -49,6 +49,27 @@ def greyscale(image:Image.Image) -> Image.Image:
     return ImageOps.grayscale(image)
 
 
+def posterize(image:Image.Image, intensity=2) -> Image.Image:
+    """#Apply a greyscale filter to the image
+    
+    **Parameters:**
+    - image (Image): PIL image object
+    - intensity: How strong the posterize effect should be. 
+    Must be an integer between 1 (strongest) and 8 (weakest).
+
+    **Returns**:
+    PIL Image object
+    """
+    if isinstance(intensity, str) or isinstance(intensity, float):
+        try:
+            intensity = int(intensity)
+        except:
+            intensity = 2
+    if intensity < 1 or intensity > 8:
+        intensity = 2
+    return ImageOps.posterize(image, intensity)
+
+
 def resize(image:Image.Image, width:str=None, height:str=None) -> Image.Image:
     """#Resize the image to the provided dimensions
     
@@ -154,6 +175,7 @@ def sharpen(image:Image.Image) -> Image.Image:
 ALLOWED_OPERATIONS = {
     "blur": blur,
     "greyscale": greyscale,
+    "posterize": posterize,
     "resize": resize,
     "rotate": rotate,
     "sharpen": sharpen

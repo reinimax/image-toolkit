@@ -122,6 +122,12 @@ function filter_sharpen() {
     }
 }
 
+function filter_poster() {
+    return {
+        "name": "posterize"
+    }
+}
+
 async function processImage(e) {
     e.preventDefault();
 
@@ -158,6 +164,10 @@ async function processImage(e) {
         },
         filter_sharpen: {
             callback: filter_sharpen,
+            args: []
+        },
+        filter_poster: {
+            callback: filter_poster,
             args: []
         }
     }
