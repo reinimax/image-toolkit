@@ -139,10 +139,23 @@ def rotate(image:Image.Image, degrees, expand:bool=True, clockwise:bool=False) -
     return image.rotate(degrees, expand=expand)
 
 
+def sharpen(image:Image.Image) -> Image.Image:
+    """#Apply a sharpen filter to the image
+    
+    **Parameters:**
+    - image (Image): PIL image object
+
+    **Returns**:
+    PIL Image object
+    """
+    return image.filter(filter=ImageFilter.SHARPEN)
+
+
 ALLOWED_OPERATIONS = {
     "blur": blur,
     "greyscale": greyscale,
     "resize": resize,
-    "rotate": rotate
+    "rotate": rotate,
+    "sharpen": sharpen
 }
 """@private"""

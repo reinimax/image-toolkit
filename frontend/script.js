@@ -116,6 +116,12 @@ function filter_blur() {
     }
 }
 
+function filter_sharpen() {
+    return {
+        "name": "sharpen"
+    }
+}
+
 async function processImage(e) {
     e.preventDefault();
 
@@ -148,6 +154,10 @@ async function processImage(e) {
         },
         filter_blur: {
             callback: filter_blur,
+            args: []
+        },
+        filter_sharpen: {
+            callback: filter_sharpen,
             args: []
         }
     }
