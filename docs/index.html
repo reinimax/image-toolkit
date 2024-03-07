@@ -807,10 +807,11 @@
 (for development, I used the excellent <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">LiveServer</a> VSCode extension) and change the 
 <code>BASE_URL</code>constant in <code>frontend/script.js</code> to point to Flasks local server.</p>
 <h3 id="self-host-the-service">(Self-) Host the service</h3>
-<p>tbd. Refer to <a href="https://flask.palletsprojects.com/en/3.0.x/deploying/">Flask's documentation for deploying to production</a>.</p>
+<p>Refer to <a href="https://flask.palletsprojects.com/en/3.0.x/deploying/">Flask's documentation for deploying to production</a>. Again, for the frontend, you may need an additional server/hosting,
+or to configure the WSGI server to serve the contents of the <code>frontend</code> directory statically. I use <a href="https://www.pythonanywhere.com/">Python anywhere</a> to host the demo.</p>
 <h3 id="usage">Usage</h3>
 <h4 id="via-the-web-interface-upload-form">via the web-interface (upload form)</h4>
-<p>tbd</p>
+<p><img alt="Screenshot" src="screenshot.png" /></p>
 <p><strong>Note</strong> that the web-interface implements most, but not all functionality of the API. This is intentional to further showcase the decoupled nature of this project.</p>
 <h4 id="via-the-api">via the API</h4>
 <p>There is one API endpoint, <code>/image-process</code>, which expects a <code>POST</code> request with a <code>JSON</code> payload.</p>
