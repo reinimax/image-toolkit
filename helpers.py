@@ -80,7 +80,8 @@ def validate_int(value, default_value:int, min:int=None, max:int=None) -> int:
             return default_value
     # After conversion, make sure we have an int. If it was neiter an int, str or float 
     # in the first place, return the default.
-    if not isinstance(value, int):
+    # Note that bools are a subclass of int and thus need special treatment.
+    if not isinstance(value, int) or isinstance(value, bool):
         return default_value
     if min != None and value < min:
         return default_value
