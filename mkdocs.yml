@@ -9,9 +9,8 @@ theme:
 plugins:
   - material/search
   - open-in-new-tab
-  - mkdocs-simple-hooks:
-      hooks:
-        on_pre_build: "mk-docs.hooks:copy_screenshot"
+hooks:
+  - mk-docs/hooks.py
 nav:
     - Home: 'index.md'
     - 'API Reference':
