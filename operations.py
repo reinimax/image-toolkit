@@ -50,12 +50,15 @@ def greyscale(image:Image.Image) -> Image.Image:
 
 
 def posterize(image:Image.Image, intensity=2) -> Image.Image:
-    """#Apply a greyscale filter to the image
+    """#Apply a posterize filter to the image
     
     **Parameters:**
     - image (Image): PIL image object
     - intensity: How strong the posterize effect should be. 
     Must be an integer between 1 (strongest) and 8 (weakest).
+
+    **Description:**
+    This filter will reduce the colors of the image, creating a poster-like effect.
 
     **Returns**:
     PIL Image object
@@ -83,8 +86,8 @@ def resize(image:Image.Image, width:str=None, height:str=None) -> Image.Image:
     regardless of aspect ratio.  
     If either width or height are given, the image will be scaled to 
     that dimension and aspect ratio will be maintained.  
-    If the given dimension(s) are bigger tham the original image, or 
-    neither width nor heigth are provided, the original image will be 
+    If the given dimension(s) are bigger than the original image, or 
+    neither width nor height are provided, the original image will be 
     returned without resizing.
 
     **Returns**:
