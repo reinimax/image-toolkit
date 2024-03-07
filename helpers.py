@@ -82,8 +82,8 @@ def validate_int(value, default_value:int, min:int=None, max:int=None) -> int:
     # in the first place, return the default.
     if not isinstance(value, int):
         return default_value
-    if min and value < min:
+    if min != None and value < min:
         return default_value
-    elif max and value > max:
+    elif max != None and value > max:
         return default_value
     return value
