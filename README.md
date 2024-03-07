@@ -22,12 +22,14 @@ Activate the virtual environment and type `flask run`. If you want to use the fr
 
 ### (Self-) Host the service
 
-tbd. Refer to [Flask's documentation for deploying to production](https://flask.palletsprojects.com/en/3.0.x/deploying/).
+Refer to [Flask's documentation for deploying to production](https://flask.palletsprojects.com/en/3.0.x/deploying/). Again, for the frontend, you may need an additional server/hosting,
+or to configure the WSGI server to serve the contents of the `frontend` directory statically. I use [Python anywhere](https://www.pythonanywhere.com/) to host the demo.
 
 ### Usage
 
 #### via the web-interface (upload form)
-tbd
+
+![Screenshot](screenshot.png)
 
 **Note** that the web-interface implements most, but not all functionality of the API. This is intentional to further showcase the decoupled nature of this project.
 

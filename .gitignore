@@ -2,3 +2,5 @@
 __pycache__
 # ignore auto-generated documentation
 mk-docs/api
+# ignore screenshot, since it is copied over programmatically from the root dir
+mk-docs/screenshot.png

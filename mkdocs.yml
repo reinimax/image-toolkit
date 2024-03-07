@@ -9,6 +9,9 @@ theme:
 plugins:
   - material/search
   - open-in-new-tab
+  - mkdocs-simple-hooks:
+      hooks:
+        on_pre_build: "mk-docs.hooks:copy_screenshot"
 nav:
     - Home: 'index.md'
     - 'API Reference':
@@ -22,3 +25,6 @@ markdown_extensions:
 - pymdownx.magiclink
 - pymdownx.snippets:
     check_paths: true
+# Don't copy the hooks file to the generated docs
+exclude_docs: |
+  hooks.py
