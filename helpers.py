@@ -59,3 +59,31 @@ def get_func_args(func:object, dict:dict, remove:list=[]):
         if (dict.get(arg) != None):
             provided_args[arg] = dict.get(arg)
     return provided_args
+
+
+def validate_int(value, default_value:int, min:int=None, max:int=None) -> int:
+    """
+    Try to convert a value to int and validate it against given contraints.
+
+    If conversion or validation fail, the given default value is returned.
+
+    Parameters:
+    - value: The value that should be converted (and, optionally, validated)
+    - default_value: The value to return if conversion or validation fail
+    - min: Minimum allowed value
+    - max: Maximum allowed value
+    """
+    if isinstance(value, str) or isinstance(value, float):
+        try:
+            value = int(value)
+        except:
+            return default_value
+    # After conversion, make sure we have an int. If it was neiter an int, str or float 
+    # in the first place, return the default.
+    if not isinstance(value, int):
+        return default_value
+    if min and value < min:
+        return default_value
+    elif max and value > max:
+        return default_value
+    return value

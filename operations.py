@@ -23,7 +23,7 @@ passed to the function.
 """
 
 from PIL import Image, ImageOps, ImageFilter
-from helpers import Unit, parse_dimension
+from helpers import Unit, parse_dimension, validate_int
 
 def blur(image:Image.Image) -> Image.Image:
     """#Apply a blur filter to the image
@@ -63,13 +63,7 @@ def posterize(image:Image.Image, intensity=2) -> Image.Image:
     **Returns**:
     PIL Image object
     """
-    if isinstance(intensity, str) or isinstance(intensity, float):
-        try:
-            intensity = int(intensity)
-        except:
-            intensity = 2
-    if intensity < 1 or intensity > 8:
-        intensity = 2
+    intensity = validate_int(intensity, 2, 1, 8)
     return ImageOps.posterize(image, intensity)
 
 

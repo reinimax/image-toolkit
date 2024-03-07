@@ -22,6 +22,7 @@ The image should be saved to this buffer.
 
 from io import BytesIO
 from PIL import Image
+from helpers import validate_int
 
 def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
     """#Convert image to jpeg format.
@@ -32,14 +33,7 @@ def jpeg(image:Image.Image, buffer:BytesIO, quality=75) -> None:
     - quality: Quality of the image. Shoulb be between 0 (lowest quality) and 95 (highest quality).
     """
     # If we get a string or float, convert to int. Pillow is picky and accepty only an int here.
-    if isinstance(quality, str) or isinstance(quality, float):
-        try:
-            quality = int(quality)
-        except:
-            quality = 75
-    # Make sure quality is within the supported range
-    if quality < 0 or quality > 95:
-        quality = 75
+    quality = validate_int(quality, 75, 0, 95)
     image.save(buffer, format="jpeg", quality=quality)
 
 
@@ -53,13 +47,7 @@ def png(image:Image.Image, buffer:BytesIO, compress_level=6, optimize:bool=False
     If `optimize`is true, `compress_level` is always 9.
     - optimize (bool): If true, the image will be made as small as possible.
     """
-    if isinstance(compress_level, str) or isinstance(compress_level, float):
-        try:
-            compress_level = int(compress_level)
-        except:
-            compress_level = 6
-    if compress_level < 0 or compress_level > 9:
-        compress_level = 6
+    compress_level = validate_int(compress_level, 6, 0, 9)
     if not isinstance(optimize, bool):
         optimize = False
     image.save(buffer, format="png", compress_level=compress_level, optimize=optimize)
