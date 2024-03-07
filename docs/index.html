@@ -295,6 +295,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-and-serving-the-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and serving the docs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -608,6 +623,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-and-serving-the-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and serving the docs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -789,7 +819,7 @@
 <h1 id="image-toolkit">IMAGE TOOLKIT</h1>
 <h4 id="video-demo">Video Demo:  <URL HERE></h4>
 <h2 id="description">Description:</h2>
-<p>Image toolkit  is a service for basic image manipulation. It features a website where the user can upload an image for processing, as well as an API, powered by <a href="https://flask.palletsprojects.com/">Flask</a>.</p>
+<p>Image toolkit  is a service for basic image manipulation. It features a website where the user can upload an image for processing, as well as an API, powered by <a href="https://flask.palletsprojects.com/">Flask</a>. Image processing uses <a href="https://python-pillow.org/">Pillow</a> under the hood.</p>
 <h3 id="links">Links</h3>
 <ul>
 <li><a href="https://reinimax.github.io/image-toolkit/">Documentation is hosted on Github</a></li>
@@ -802,6 +832,12 @@
 <li>Install dependencies: <code>python -m pip install -r requirements.txt</code></li>
 </ol>
 <p>Note: You can exit the virtual environment by typing <code>deactivate</code>. <a href="https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/">Learn more about virtual environments and package installation</a>.</p>
+<h4 id="building-and-serving-the-docs">Building and serving the docs</h4>
+<p>The documentation for this project is automatically generated using <a href="https://www.mkdocs.org/">mkdocs</a> and <a href="https://pdoc.dev/">pdoc</a>. It consists of this README file and the documentation 
+in the <code>operations.py</code> and <code>formats.py</code> files.</p>
+<p>You can serve the documentation locally by running <code>mkdocs serve</code>.
+Running <code>mkdocs build</code> will rebuild the docs (inside the <code>docs</code> folder).
+Note that if you make changes to one of the Python files, you need to run <code>./make.py</code> before you build or serve, so that mkdocs picks up the latest changes.</p>
 <h3 id="run-the-service-locally">Run the service locally</h3>
 <p>Activate the virtual environment and type <code>flask run</code>. If you want to use the frontend locally, you need to set up an additional local server 
 (for development, I used the excellent <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">LiveServer</a> VSCode extension) and change the 
@@ -812,6 +848,9 @@ or to configure the WSGI server to serve the contents of the <code>frontend</cod
 <h3 id="usage">Usage</h3>
 <h4 id="via-the-web-interface-upload-form">via the web-interface (upload form)</h4>
 <p><img alt="Screenshot" src="screenshot.png" /></p>
+<p>I hope, the web-interface is pretty self-explanatory. First, upload an image via the upload widget at the bottom of the page. Then configure the operations you want to perform.
+Except for the filters, you need to <em>check the "Apply" checkbox</em> next to the operation, otherwise it won't be performed. When you're done, hit the "Submit" button. If you omit a required field or forget to upload an image in the first place, an error message will be displayed that should be pretty easy to notice.</p>
+<p>After submitting, the text of the submit button will change to "In progress ...". After it changed back (and for small images it might be so fast that you don't even notice the button text changing and changing back), the image is ready and you should see the updated image in the preview. You can view or download the processed image via the buttons below the image (due to the frontend styling, big images won't be displayed full-size in the UI. If you want to view the image full-size, the "View" button is your friend).</p>
 <p><strong>Note</strong> that the web-interface implements most, but not all functionality of the API. This is intentional to further showcase the decoupled nature of this project.</p>
 <h4 id="via-the-api">via the API</h4>
 <p>There is one API endpoint, <code>/image-process</code>, which expects a <code>POST</code> request with a <code>JSON</code> payload.</p>
@@ -824,7 +863,7 @@ or a valid operation fails, the other operations will still be performed.</li>
 </ul>
 <p>An <code>operation</code> object itself consists of a mandatory <code>name</code> field which specifies the operation that should be performed. The name is the same as the name of the processing function
 that will be called to do the work.</p>
-<p>Optionally, each operation accepts arguments that specify how the image should be processed, e.g. a width and/or height for resizing an image. Dimensions like width or height can be given to the API in different ways: Generally, it will accept units of pixels and percent. If the unit is pixels, it can be omitted, since this is assumed as the standard. These would all be valid arguments:</p>
+<p>Optionally, each operation accepts arguments that specify how the image should be processed, e.g. a width and/or height for resizing an image. Dimensions like width or height can be given to the API in different ways: Generally, it will accept units of pixels and percent. If the unit is pixels, it can be omitted, since this is assumed as the default. These would all be valid arguments:</p>
 <pre><code>&quot;width&quot;: &quot;300px&quot;
 &quot;width&quot;: &quot;300&quot; // 300px, as above
 &quot;width&quot;: 300
@@ -858,7 +897,7 @@ If <code>return_as</code> is ommitted or contains an invalid format, the image w
 <p>A successful response from the API will look like this:</p>
 <pre><code>{
     &quot;metadata&quot;: {
-        &quot;format&quot;: &quot;jpeg&quot;, // format of the processed image
+        &quot;format&quot;: &quot;webp&quot;, // format of the processed image
         // width and height of the processed image
         &quot;height&quot;: 374,
         &quot;width&quot;: 300
@@ -876,7 +915,7 @@ If <code>return_as</code> is ommitted or contains an invalid format, the image w
 <p>You can look up the available processing functions and the arguments they expect in the <a href="/api/operations/">API documentation</a> (ignore the <code>image</code> argument, as this will be passed in automatically).</p>
 <h5 id="accepted-file-formats">Accepted file formats</h5>
 <p>The <a href="/api/formats/">supported formats page</a> lists the formats that the API is guaranteed to accept and return. Other image formats <em>may</em> work as input.
-Refer to the <a href="https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html">pillow documentation</a> to see which formats <em>may</em> work.</p>
+Refer to the <a href="https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html">Pillow documentation</a> to see which formats <em>may</em> work.</p>
 <h2 id="a-short-tour-of-the-repo">A short tour of the repo</h2>
 <p>This repository consists of 4 main parts:</p>
 <h3 id="the-backendapi">The backend/API</h3>
@@ -889,7 +928,12 @@ Refer to the <a href="https://pillow.readthedocs.io/en/stable/handbook/image-fil
 <li><code>requirements.txt</code> defines the libraries used by the application.</li>
 </ul>
 <h3 id="the-frontend">The frontend</h3>
-<p>tbd</p>
+<p>The frontend consists of static HTML, CSS and JavaScript files, which can be found inside the <code>frontend</code> directory:</p>
+<ul>
+<li><code>index.html</code> defines the markup of the web-interface</li>
+<li><code>style.css</code> contains the styling</li>
+<li><code>script.js</code> handles image upload, download and preview, prepares the JSON payload for and makes the request to the API</li>
+</ul>
 <h3 id="the-documentation">The documentation</h3>
 <p>The documentation is automatically generated from the README file and the docstrings from the source code of the API. It is located in the <code>docs</code> directory.</p>
 <h3 id="tooling-for-the-documentation">Tooling for the documentation:</h3>
@@ -898,7 +942,7 @@ Refer to the <a href="https://pillow.readthedocs.io/en/stable/handbook/image-fil
 <li><code>mkdocs.yml</code> is the configuration file for creating a static site containing the documentation.</li>
 <li><code>make.py</code> is a script that generates <code>pdoc</code> documentation and moves it to a directory and format where it can be picked off by <code>mkdocs</code>.</li>
 <li>The <code>pdoc-template</code> folder contains a template override and styling for <code>pdoc</code>, so that it better integrates with the generated <code>mkdocs</code>.</li>
-<li>The <code>mk-docs</code>folder contains an <code>index.md</code> file that links the README into the generated documentation and <code>custom.js</code> that does some cosmetic changes to better integrate the documentation generated by <code>pdoc</code>.</li>
+<li>The <code>mk-docs</code>folder contains an <code>index.md</code> file that links the README into the generated documentation and <code>custom.js</code> that does some cosmetic changes to better integrate the documentation generated by <code>pdoc</code>. <code>hooks.py</code> takes care of copying the screenshot from the projects root directory to the docs directory.</li>
 </ul>
 <h2 id="design-decisions">Design decisions</h2>
 <ul>
@@ -911,6 +955,8 @@ to document the single image manipulation operations. At the end, I decided to u
 First, defining custom save functions allows for better auto-generated documentation. 
 And second, perhaps more important, it allows for providing default arguments that are different from the ones provided by Pillow, and for additional validation.
 The chosen approach is more verbose, but I find it also more robust and explicit.</li>
+<li>The frontend is deliberately rather simplistic and minimally styled. The focus of this project is the API and the frontend serves more as a demo and a handy tool if you just want to quickly upload and image. The UI works and is pretty usable, but of course much could be improved in terms of UI/UX. For that, it would be a good idea to use libraries or even a framework, but again, this would make the frontend more complex and exceed the scope of this project. </li>
+<li>Essentially, the web-interface is one big form, and you have to check the "Apply"-checkbox for each operation that you want to perform. Splitting it up into smaller forms, each with a submit button, would be a more user-friendly alternative (you really forget to check that checkbox pretty easily). However, I decided against that approach, because I wanted to showcase the possibility of chaining operations on the frontend too.</li>
 </ul>
 <h2 id="acknowledgements">Acknowledgements</h2>
 <ul>
@@ -920,7 +966,16 @@ and for help with debugging some stuff.</li>
 <li>This project would not have been possible without some amazing libraries. See below for a list of projects this project relies on.</li>
 </ul>
 <h2 id="powerd-by">Powerd by</h2>
-<p>tbd list used libraries</p>
+<ul>
+<li><a href="https://flask.palletsprojects.com/">Flask</a>: API/backend</li>
+<li><a href="https://github.com/corydolphin/flask-cors">Flask-Cors</a>: CORS support</li>
+<li><a href="https://python-pillow.org/">Pillow</a>: Image processing</li>
+<li><a href="https://pdoc.dev/">pdoc</a>: Generate documentation from Python doc strings</li>
+<li><a href="https://www.mkdocs.org/">mkdocs</a>: Static site generator for the documentation</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>: Documentation theme</li>
+<li><a href="https://github.com/facelessuser/pymdown-extensions">PyMdown Extensions</a></li>
+<li><a href="https://github.com/JakubAndrysek/mkdocs-open-in-new-tab">MkDocs - Open in a new tab plugin</a></li>
+</ul>
 
 
 
